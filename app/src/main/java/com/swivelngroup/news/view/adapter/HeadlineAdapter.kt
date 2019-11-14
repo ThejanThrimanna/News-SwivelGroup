@@ -22,7 +22,7 @@ class HeadlineAdapter(internal var headlines: List<NewsItem?>) :
         )
     }
 
-    private fun getItem(position: Int): NewsItem {
+    fun getItem(position: Int): NewsItem {
         return headlines[position]!!
     }
 
@@ -32,7 +32,11 @@ class HeadlineAdapter(internal var headlines: List<NewsItem?>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var headlineHolder = holder as HeadlinesViewHolder
-        AppUtils.loadImageGlide(holder.itemView.context,getItem(position).urlToImage!!, headlineHolder.image)
+        AppUtils.loadImageGlide(
+            holder.itemView.context,
+            getItem(position).urlToImage!!,
+            headlineHolder.image
+        )
         headlineHolder.title.text = getItem(position).title!!
     }
 

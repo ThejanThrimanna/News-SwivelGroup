@@ -1,5 +1,6 @@
 package com.swivelngroup.news.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.swivelngroup.news.R
+import com.swivelngroup.news.network.model.NewsItem
+import com.swivelngroup.news.utils.KEYWORD_NEWS
 import com.swivelngroup.news.utils.RecyclerItemClickListenr
 import com.swivelngroup.news.view.activity.MainActivity
+import com.swivelngroup.news.view.activity.NewsDetailsActivity
 import com.swivelngroup.news.viewmodel.HeadlineViewModel
 import kotlinx.android.synthetic.main.fragment_headline.*
 
@@ -56,14 +60,19 @@ class HeadlineFragment : Fragment() {
         recyclerview.addOnItemTouchListener(
             RecyclerItemClickListenr(activity as MainActivity, recyclerview,object:RecyclerItemClickListenr.OnItemClickListener{
                 override fun onItemLongClick(view: View?, position: Int) {
-
                 }
 
                 override fun onItemClick(view: View, position: Int) {
-
+                    OpenNews(viewModel.headlineAdapter.getItem(position))
                 }
             })
         )
+    }
+
+    private fun OpenNews(item: NewsItem) {
+        var intetnt = Intent(activity as MainActivity, NewsDetailsActivity::class.java)
+        intetnt.putExtra(KEYWORD_NEWS, item)
+        startActivity(intetnt)
     }
 
 }
