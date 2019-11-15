@@ -11,19 +11,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:tabTextColor="#fff"
         app:tabBackground="?attr/selectableItemBackground"
         app:tabGravity="center"
-        app:tabSelectedTextColor="@android:color/white"
         app:tabMode="scrollable"
-        />
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="#fff" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

@@ -7,4 +7,5 @@
     <string name="headline">Headlines</string>
     <string name="custom">Custom</string>
     <string name="profile">Profile</string>
+    <string name="original_news">Original News</string>
 </resources>
