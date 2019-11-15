@@ -7,14 +7,17 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.crashlytics.android.Crashlytics
 import com.swivelngroup.news.R
+import io.fabric.sdk.android.Fabric
 
 class SplashActivity : AppCompatActivity() {
-    var view1 : TextView? = null
+    var view1: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-         view1 = findViewById<View>(R.id.text) as TextView
+        view1 = findViewById<View>(R.id.text) as TextView
+        Fabric.with(this, Crashlytics())
     }
 
     override fun onResume() {
