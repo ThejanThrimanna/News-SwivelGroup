@@ -60,8 +60,8 @@ class ProfileFragment : Fragment() {
             SharedPref.saveInteger(SharedPref.SELECTED_COUNTRY_INDEX,mCountry!!.selectedItemPosition)
 
             SharedPref.saveString(SharedPref.SELECTED_CATEGORY_VALUE,  mCategory!!.selectedItem.toString())
-            SharedPref.saveString(SharedPref.SELECTED_LANGUAGE_INDEX,mLaungage!!.selectedItem.toString())
-            SharedPref.saveString(SharedPref.SELECTED_COUNTRY_INDEX,mCountry!!.selectedItem.toString())
+            SharedPref.saveString(SharedPref.SELECTED_LANGUAGE_VALUE,mLaungage!!.selectedItem.toString())
+            SharedPref.saveString(SharedPref.SELECTED_COUNTRY_VALUE,mCountry!!.selectedItem.toString())
 
             Toast.makeText(activity as MainActivity, getString(R.string.data_saved), Toast.LENGTH_SHORT).show()
         }

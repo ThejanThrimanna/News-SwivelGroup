@@ -22,9 +22,11 @@
         android:background="@color/colorPrimary"
         app:tabBackground="?attr/selectableItemBackground"
         app:tabGravity="center"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="#fff" />
+        app:tabTextColor="@color/white"
+        android:layout_gravity="center"
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

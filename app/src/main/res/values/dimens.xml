@@ -5,6 +5,7 @@
     <dimen name="textsize_small">14sp</dimen>
     <dimen name="textsize_medium">16sp</dimen>
     <dimen name="textsize_large">18sp</dimen>
+    <dimen name="textsize_ex_large">45sp</dimen>
     <dimen name="item_margin">4dp</dimen>
     <dimen name="textview_general_padding">4dp</dimen>
 </resources>
