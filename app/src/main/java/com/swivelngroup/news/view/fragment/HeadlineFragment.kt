@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -32,6 +33,10 @@ class HeadlineFragment : BaseFragment() {
     private var mRefresh: SwipeRefreshLayout? = null
     private lateinit var mViewModel: HeadlineViewModel
     private lateinit var mProgressBar: ProgressBar
+    private lateinit var messageFromResponse: String
+    private var message = Observer<String> { msg ->
+        messageFromResponse = msg!!
+    }
 
     companion object {
         fun newInstance(): HeadlineFragment {
@@ -58,7 +63,7 @@ class HeadlineFragment : BaseFragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if(isVisibleToUser && ::mViewModel.isInitialized){
+        if (isVisibleToUser && ::mViewModel.isInitialized) {
             mViewModel.getHeadlines()
         }
     }
@@ -83,6 +88,7 @@ class HeadlineFragment : BaseFragment() {
     }
 
     private fun initSubscription() {
+        mViewModel.message.observe(this, message)
         mViewModel.state!!.observe(this, Observer<ViewModelState> {
             it?.let {
                 update(it)
@@ -99,13 +105,13 @@ class HeadlineFragment : BaseFragment() {
                 mProgressBar.visibility = View.GONE
             }
             Status.ERROR -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
             Status.TIMEOUT -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
             Status.LIST_EMPTY -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
         }
     }
@@ -127,6 +133,11 @@ class HeadlineFragment : BaseFragment() {
                     }
                 })
         )
+    }
+
+    private fun errorMessage() {
+        mProgressBar.visibility = View.GONE
+        Toast.makeText(activity as MainActivity, messageFromResponse, Toast.LENGTH_SHORT).show()
     }
 
     private fun OpenNews(item: NewsItem) {

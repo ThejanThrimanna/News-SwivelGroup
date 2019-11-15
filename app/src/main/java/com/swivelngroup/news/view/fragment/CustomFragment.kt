@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,7 +34,10 @@ class CustomFragment : BaseFragment() {
     private var mFilter: Spinner? = null
     private lateinit var mViewModel: CustomViewModel
     private lateinit var mProgressBar: ProgressBar
-
+    private lateinit var messageFromResponse: String
+    private var message = Observer<String> { msg ->
+        messageFromResponse = msg!!
+    }
     companion object {
         fun newInstance(): CustomFragment {
             return CustomFragment()
@@ -117,6 +117,7 @@ class CustomFragment : BaseFragment() {
     }
 
     private fun initSubscription() {
+        mViewModel.message.observe(this, message)
         mViewModel.state!!.observe(this, Observer<ViewModelState> {
             it?.let {
                 update(it)
@@ -133,15 +134,20 @@ class CustomFragment : BaseFragment() {
                 mProgressBar.visibility = View.GONE
             }
             Status.ERROR -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
             Status.TIMEOUT -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
             Status.LIST_EMPTY -> {
-                mProgressBar.visibility = View.GONE
+                errorMessage()
             }
         }
+    }
+
+    private fun errorMessage(){
+        mProgressBar.visibility = View.GONE
+        Toast.makeText(activity as MainActivity,messageFromResponse,Toast.LENGTH_SHORT).show()
     }
 
     private fun setUpRecyclerView() {
