@@ -19,7 +19,6 @@ import java.net.SocketTimeoutException
 class HeadlineViewModel : BaseViewModel() {
 
     var headlineAdapter = HeadlineAdapter(ArrayList())
-
     init {
         state = MutableLiveData()
     }
@@ -58,13 +57,13 @@ class HeadlineViewModel : BaseViewModel() {
         if (headlines.isNullOrEmpty()) {
             if (headlines != null) {
                 state!!.postValue(ViewModelState.list_empty())
-                headlineAdapter!!.headlines = headlines
-                headlineAdapter!!.notifyDataSetChanged()
+                headlineAdapter.headlines = headlines
+                headlineAdapter.notifyDataSetChanged()
             }
         } else {
             state!!.postValue(ViewModelState.success())
-            headlineAdapter!!.headlines = headlines
-            headlineAdapter!!.notifyDataSetChanged()
+            headlineAdapter.headlines = headlines
+            headlineAdapter.notifyDataSetChanged()
         }
     }
 

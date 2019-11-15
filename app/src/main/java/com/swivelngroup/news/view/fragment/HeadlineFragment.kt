@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.swivelngroup.news.R
 import com.swivelngroup.news.network.model.NewsItem
 import com.swivelngroup.news.utils.KEYWORD_NEWS
 import com.swivelngroup.news.utils.RecyclerItemClickListenr
@@ -17,14 +20,16 @@ import com.swivelngroup.news.view.activity.NewsDetailsActivity
 import com.swivelngroup.news.viewmodel.HeadlineViewModel
 import com.swivelngroup.news.viewmodel.Status
 import com.swivelngroup.news.viewmodel.ViewModelState
-import kotlinx.android.synthetic.main.fragment_headline.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class HeadlineFragment : BaseFragment() {
 
-    private var fragmentView: View? = null
+    private var mFragmentView: View? = null
+    private var mRecyclerview: RecyclerView? = null
+    private var mRefresh: SwipeRefreshLayout? = null
+    lateinit var mViewModel: HeadlineViewModel
 
     companion object {
         fun newInstance(): HeadlineFragment {
@@ -32,24 +37,27 @@ class HeadlineFragment : BaseFragment() {
         }
     }
 
-    lateinit var viewModel: HeadlineViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (fragmentView != null) {
-            return fragmentView
+        if (mFragmentView != null) {
+            return mFragmentView
         }
         val view =
             inflater.inflate(com.swivelngroup.news.R.layout.fragment_headline, container, false)
-        fragmentView = view
+        mFragmentView = view
+        mRecyclerview = view.findViewById(R.id.recyclerview)
+        mRefresh = view.findViewById(R.id.refresh)
+        init()
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser && ::mViewModel.isInitialized){
+            mViewModel.getHeadlines()
+        }
     }
 
     private fun init() {
@@ -57,22 +65,22 @@ class HeadlineFragment : BaseFragment() {
         initSubscription()
         setUpRecyclerView()
         initAction()
-        viewModel.getHeadlines()
+        mViewModel.getHeadlines()
     }
 
     private fun initAction() {
-        refresh.setOnRefreshListener {
-            viewModel.getHeadlines()
-            refresh.isRefreshing = false
+        mRefresh!!.setOnRefreshListener {
+            mViewModel.getHeadlines()
+            mRefresh!!.isRefreshing = false
         }
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(HeadlineViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(HeadlineViewModel::class.java)
     }
 
     private fun initSubscription() {
-        viewModel.state!!.observe(this, Observer<ViewModelState> {
+        mViewModel.state!!.observe(this, Observer<ViewModelState> {
             it?.let {
                 update(it)
             }
@@ -100,19 +108,19 @@ class HeadlineFragment : BaseFragment() {
     }
 
     private fun setUpRecyclerView() {
-        recyclerview.setHasFixedSize(true)
-        recyclerview.layoutManager = LinearLayoutManager(activity)
-        recyclerview.adapter = viewModel.headlineAdapter
-        recyclerview.addOnItemTouchListener(
+        mRecyclerview!!.setHasFixedSize(true)
+        mRecyclerview!!.layoutManager = LinearLayoutManager(activity)
+        mRecyclerview!!.adapter = mViewModel.headlineAdapter
+        mRecyclerview!!.addOnItemTouchListener(
             RecyclerItemClickListenr(
                 activity as MainActivity,
-                recyclerview,
+                mRecyclerview!!,
                 object : RecyclerItemClickListenr.OnItemClickListener {
                     override fun onItemLongClick(view: View?, position: Int) {
                     }
 
                     override fun onItemClick(view: View, position: Int) {
-                        OpenNews(viewModel.headlineAdapter.getItem(position))
+                        OpenNews(mViewModel.headlineAdapter.getItem(position))
                     }
                 })
         )
