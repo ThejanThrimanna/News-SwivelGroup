@@ -6,7 +6,7 @@ import com.swivelngroup.news.utils.API_KEY
 import com.swivelngroup.news.utils.MESSAGE_ERROR
 import com.swivelngroup.news.utils.MESSAGE_SOCKET_TIMEOUT
 import com.swivelngroup.news.utils.SOURCE
-import com.swivelngroup.news.view.adapter.HeadlineAdapter
+import com.swivelngroup.news.view.adapter.NewsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
@@ -18,7 +18,7 @@ import java.net.SocketTimeoutException
  */
 class HeadlineViewModel : BaseViewModel() {
 
-    var headlineAdapter = HeadlineAdapter(ArrayList())
+    var newsAdapter = NewsAdapter(ArrayList())
     init {
         state = MutableLiveData()
     }
@@ -57,13 +57,13 @@ class HeadlineViewModel : BaseViewModel() {
         if (headlines.isNullOrEmpty()) {
             if (headlines != null) {
                 state!!.postValue(ViewModelState.list_empty())
-                headlineAdapter.headlines = headlines
-                headlineAdapter.notifyDataSetChanged()
+                newsAdapter.headlines = headlines
+                newsAdapter.notifyDataSetChanged()
             }
         } else {
             state!!.postValue(ViewModelState.success())
-            headlineAdapter.headlines = headlines
-            headlineAdapter.notifyDataSetChanged()
+            newsAdapter.headlines = headlines
+            newsAdapter.notifyDataSetChanged()
         }
     }
 

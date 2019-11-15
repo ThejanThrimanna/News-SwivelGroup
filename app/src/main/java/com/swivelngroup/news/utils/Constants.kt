@@ -13,6 +13,7 @@ const val SOURCE = "bbc-news"
 const val KEYWORD_API_KEY = "apiKey"
 const val KEYWORD_SOURCE = "sources"
 const val KEYWORD_NEWS = "news"
+const val KEYWORD_Q = "q"
 
 //messages
 const val MESSAGE_SOCKET_TIMEOUT = "Socket timeout!"

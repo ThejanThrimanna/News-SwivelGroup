@@ -17,4 +17,17 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateTint="@color/colorAccent"
+        android:progressTint="@color/colorAccent"
+        style="@style/Progress"
+        tools:targetApi="lollipop"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
 </FrameLayout>

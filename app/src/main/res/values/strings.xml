@@ -8,4 +8,13 @@
     <string name="custom">Custom</string>
     <string name="profile">Profile</string>
     <string name="original_news">Original News</string>
+    <string name="filter">Filter</string>
+
+    <string-array name="keywords">
+        <item>Bitcoin</item>
+        <item>Apple</item>
+        <item>Earthquake</item>
+        <item>Animal</item>
+    </string-array>
+
 </resources>

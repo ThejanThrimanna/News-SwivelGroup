@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         homeViewPageAdapter.addFragments(customFragment, getString(R.string.custom))
         homeViewPageAdapter.addFragments(profileFragment, getString(R.string.profile))
         viewPager.adapter = homeViewPageAdapter
-        viewPager.offscreenPageLimit = 1
+        viewPager.offscreenPageLimit = 3
         tabs.setupWithViewPager(viewPager, true)
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,7 +30,8 @@ class HeadlineFragment : BaseFragment() {
     private var mFragmentView: View? = null
     private var mRecyclerview: RecyclerView? = null
     private var mRefresh: SwipeRefreshLayout? = null
-    lateinit var mViewModel: HeadlineViewModel
+    private lateinit var mViewModel: HeadlineViewModel
+    private lateinit var mProgressBar: ProgressBar
 
     companion object {
         fun newInstance(): HeadlineFragment {
@@ -49,6 +51,7 @@ class HeadlineFragment : BaseFragment() {
         mFragmentView = view
         mRecyclerview = view.findViewById(R.id.recyclerview)
         mRefresh = view.findViewById(R.id.refresh)
+        mProgressBar = view.findViewById(R.id.progressBar)
         init()
         return view
     }
@@ -90,19 +93,19 @@ class HeadlineFragment : BaseFragment() {
     fun update(state: ViewModelState) {
         when (state.status) {
             Status.LOADING -> {
-                showProgress(activity as MainActivity)
+                mProgressBar.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
-                hideProgress()
+                mProgressBar.visibility = View.GONE
             }
             Status.ERROR -> {
-                hideProgress()
+                mProgressBar.visibility = View.GONE
             }
             Status.TIMEOUT -> {
-                hideProgress()
+                mProgressBar.visibility = View.GONE
             }
             Status.LIST_EMPTY -> {
-                hideProgress()
+                mProgressBar.visibility = View.GONE
             }
         }
     }
@@ -110,7 +113,7 @@ class HeadlineFragment : BaseFragment() {
     private fun setUpRecyclerView() {
         mRecyclerview!!.setHasFixedSize(true)
         mRecyclerview!!.layoutManager = LinearLayoutManager(activity)
-        mRecyclerview!!.adapter = mViewModel.headlineAdapter
+        mRecyclerview!!.adapter = mViewModel.newsAdapter
         mRecyclerview!!.addOnItemTouchListener(
             RecyclerItemClickListenr(
                 activity as MainActivity,
@@ -120,7 +123,7 @@ class HeadlineFragment : BaseFragment() {
                     }
 
                     override fun onItemClick(view: View, position: Int) {
-                        OpenNews(mViewModel.headlineAdapter.getItem(position))
+                        OpenNews(mViewModel.newsAdapter.getItem(position))
                     }
                 })
         )

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_headline.view.*
  * Created by thejanthrimanna on 2019-11-14.
  */
 
-class HeadlineAdapter(internal var headlines: List<NewsItem?>) :
+class NewsAdapter(internal var headlines: List<NewsItem?>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HeadlinesViewHolder(
