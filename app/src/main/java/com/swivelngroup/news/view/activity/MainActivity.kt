@@ -10,10 +10,11 @@ import com.swivelngroup.news.view.fragment.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    var homeFragment = HeadlineFragment.newInstance()
-    var customFragment = CustomFragment.newInstance()
-    var profileFragment = ProfileFragment.newInstance()
-    lateinit var homeViewPageAdapter: HomeViewPageAdapter
+    private var homeFragment = HeadlineFragment.newInstance()
+    private var customFragment = CustomFragment.newInstance()
+    private var profileFragment = ProfileFragment.newInstance()
+    private lateinit var homeViewPageAdapter: HomeViewPageAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private fun init() {
         initView()
     }
-
     private fun initView() {
         setStatePageAdapter()
     }

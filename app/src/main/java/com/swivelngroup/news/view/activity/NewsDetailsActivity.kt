@@ -47,7 +47,8 @@ class NewsDetailsActivity : AppCompatActivity() {
         if (currentNews.content != null)
             tvContent.text = Html.fromHtml(currentNews.content)
         tvLink.text = Html.fromHtml(currentNews.url)
-        AppUtils.loadImageGlide(this, currentNews.urlToImage!!, ivImage)
+        if (currentNews.urlToImage != null)
+            AppUtils.loadImageGlide(this, currentNews.urlToImage!!, ivImage)
     }
 
     private fun openTheRealNews(link: String) {

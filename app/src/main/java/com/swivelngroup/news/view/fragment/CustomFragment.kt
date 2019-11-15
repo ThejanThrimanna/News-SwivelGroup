@@ -106,7 +106,6 @@ class CustomFragment : BaseFragment() {
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
-                // your code here
             }
 
         })

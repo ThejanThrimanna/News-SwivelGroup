@@ -14,6 +14,9 @@ const val KEYWORD_API_KEY = "apiKey"
 const val KEYWORD_SOURCE = "sources"
 const val KEYWORD_NEWS = "news"
 const val KEYWORD_Q = "q"
+const val KEYWORD_COUNTRY = "country"
+const val KEYWORD_CATEGORY = "category"
+const val KEYWORD_LANGUAGE = "language"
 
 //messages
 const val MESSAGE_SOCKET_TIMEOUT = "Socket timeout!"

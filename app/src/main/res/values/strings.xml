@@ -9,12 +9,10 @@
     <string name="profile">Profile</string>
     <string name="original_news">Original News</string>
     <string name="filter">Filter</string>
-
-    <string-array name="keywords">
-        <item>Bitcoin</item>
-        <item>Apple</item>
-        <item>Earthquake</item>
-        <item>Animal</item>
-    </string-array>
+    <string name="category">Category</string>
+    <string name="language">Language</string>
+    <string name="country">Country</string>
+    <string name="save">Save</string>
+    <string name="data_saved">Data Saved!</string>
 
 </resources>

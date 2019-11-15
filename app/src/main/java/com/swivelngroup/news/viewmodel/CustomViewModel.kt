@@ -5,7 +5,6 @@ import com.swivelngroup.news.network.model.NewsItem
 import com.swivelngroup.news.utils.API_KEY
 import com.swivelngroup.news.utils.MESSAGE_ERROR
 import com.swivelngroup.news.utils.MESSAGE_SOCKET_TIMEOUT
-import com.swivelngroup.news.utils.SOURCE
 import com.swivelngroup.news.view.adapter.NewsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +24,7 @@ class CustomViewModel : BaseViewModel() {
 
     fun getNews(key:String) {
         addDisposable(
-            apiCall.getEverything(API_KEY, SOURCE, key)
+            apiCall.getEverything(API_KEY, key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { state!!.postValue(ViewModelState.loading()) }
