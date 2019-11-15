@@ -38,7 +38,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_image_placeholder"
             tools:ignore="VectorDrawableCompat"
-            android:layout_marginTop="@dimen/item_margin"/>
+            android:layout_marginTop="@dimen/item_margin"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tvTitle"
